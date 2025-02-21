@@ -243,8 +243,8 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%; */
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
@@ -270,8 +270,8 @@
     --radius: 0.5rem;
   }
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%; */
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
@@ -308,8 +308,8 @@
 */
 
 :root {
-  --background: hsl(0 0% 100%);
-  --foreground: hsl(222.2 84% 4.9%);
+  /* --background: hsl(0 0% 100%);
+  --foreground: hsl(222.2 84% 4.9%); */
   --card: hsl(0 0% 100%);
   --card-foreground: hsl(222.2 84% 4.9%);
   --popover: hsl(0 0% 100%);
@@ -340,8 +340,8 @@
 */
 
 .dark {
-  --background: hsl(222.2 84% 4.9%);
-  --foreground: hsl(210 40% 98%);
+  /* --background: hsl(222.2 84% 4.9%);
+  --foreground: hsl(210 40% 98%); */
   --card: hsl(222.2 84% 4.9%);
   --card-foreground: hsl(210 40% 98%);
   --popover: hsl(222.2 84% 4.9%);
@@ -399,4 +399,17 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+}
+
+/*
+  ---break---
+*/
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
