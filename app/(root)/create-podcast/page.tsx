@@ -26,6 +26,9 @@ import { cn } from "@/lib/utils"
 import { useState } from "react"
 import { VoiceType } from "@/types"
 import { Textarea } from "@/components/ui/textarea"
+import GeneratePodcast from "@/components/GeneratePodcast"
+import GenerateThumbnail from "@/components/GenerateThumbnail"
+import { Loader } from "lucide-react"
 
 const voiceTypes: VoiceType[] = ["alloy", "shimmer", "nova", "echo", "fable", "onyx"];
 
@@ -40,6 +43,7 @@ const formSchema = z.object({
 
 function CreatePodcast() {
   const [voiceType, setVoiceType] = useState<VoiceType>("alloy");
+  const [isSubmitting, setIsSubmitting] = useState(true);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -112,7 +116,22 @@ function CreatePodcast() {
               )}
             />
           </div>
-          <Button type="submit">Submit</Button>
+
+          <div className="flex flex-col pt-10">
+            <GeneratePodcast />
+            <GenerateThumbnail />
+
+            <div className="mt-10 w-full">
+              <Button type="submit" className="text-white-1 bg-orange-1 hover:bg-black-1 text-base font-extrabold leading-normal w-full py-4 cursor-pointer transition-all duration-500">
+                {isSubmitting ? (
+                  <>
+                    Submitting
+                    <Loader size={20} className="animate-spin" />
+                  </>
+                ) : "Submit & Publish Podcast"}
+              </Button>
+            </div>
+          </div>
         </form>
       </Form>
     </section>
