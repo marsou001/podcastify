@@ -10,7 +10,6 @@ import { internal } from "./_generated/api";
 import { httpAction } from "./_generated/server";
 
 const handleClerkWebhook = httpAction(async (ctx, request) => {
-  console.log("=== validate web hook ===")
   const event = await validateRequest(request);
   if (!event) {
     return new Response("Invalid request", { status: 400 });
