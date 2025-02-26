@@ -29,20 +29,27 @@ import { Textarea } from "@/components/ui/textarea"
 import GeneratePodcast from "@/components/GeneratePodcast"
 import GenerateThumbnail from "@/components/GenerateThumbnail"
 import { Loader } from "lucide-react"
+import { Id } from "@/convex/_generated/dataModel"
 
 const voiceTypes: VoiceType[] = ["alloy", "shimmer", "nova", "echo", "fable", "onyx"];
 
 const formSchema = z.object({
-  podcastTitle: z.string().min(2, {
-    message: "Title must be at least 2 characters.",
-  }),
-  podcastDescription: z.string().min(2, {
-    message: "Title must be at least 2 characters.",
-  }),
+  podcastTitle: z.string().min(2),
+  podcastDescription: z.string().min(2),
 })
 
 function CreatePodcast() {
+  const [imageURL, setImageURL] = useState("");
+  const [imagePrompt, setImagePrompt] = useState("");
+  const [imageStorageId, setImageStorageId] = useState<Id<"_storage"> | null>(null);
+  
+  const [audioURL, setAudioURL] = useState("");
+  const [audioStorageId, setAudioStorageId] = useState<Id<"_storage"> | null>(null);
+  const [audioDuration, setAudioDuration] = useState(0);
+  
   const [voiceType, setVoiceType] = useState<VoiceType>("alloy");
+  const [voicePrompt, setVoicePrompt] = useState("");
+
   const [isSubmitting, setIsSubmitting] = useState(true);
 
   const form = useForm<z.infer<typeof formSchema>>({
