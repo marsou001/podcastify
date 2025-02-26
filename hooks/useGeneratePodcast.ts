@@ -1,7 +1,8 @@
 import { api } from "@/convex/_generated/api";
 import { GeneratePodcastProps } from "@/types";
-import { useAction } from "convex/react";
-import { Blob, File } from "node:buffer";
+import { isStorageId } from "@/types/type-guards";
+import { useUploadFiles } from "@xixixao/uploadstuff/react";
+import { useAction, useMutation, useQuery } from "convex/react";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
@@ -9,6 +10,9 @@ function useGeneratePodcast({
   setAudioStorageId, setAudio, voiceType, voicePrompt
 }: GeneratePodcastProps) {
   const [isGenerating, setIsGenerating] = useState(false);
+
+  const generateUploadUrl = useMutation(api.files.generateUploadUrl);
+  const { startUpload } = useUploadFiles(generateUploadUrl);
 
   const getPodcastAudio = useAction(api.openai.generateAudioAction);
 
@@ -29,6 +33,28 @@ function useGeneratePodcast({
       const blob = new Blob([response], { type: "audio/mp3" });
       const filename = `podcast-${uuidv4()}.mp3`;
       const file = new File([blob], filename, { type: "audio/mp3" });
+      const uploaded = await startUpload([file]);
+      const uploadResponse = uploaded[0].response;
+
+      if (uploadResponse === null || typeof uploadResponse !== "object" || !("storageId" in uploadResponse)) {
+        throw new Error("storageId doesn't exist in uploadResponse");
+      }
+
+      const { storageId } = uploadResponse;
+
+      if (!isStorageId(storageId)) {
+        throw new Error("storageId isn't a string!");
+      }
+
+      setAudioStorageId(storageId);
+      const audioURL = useQuery(api.podcasts.getURL, { storageId });
+      
+      if (!audioURL) {
+        throw new Error("Audio is not found")
+      }
+
+      setAudio(audioURL);
+      
     } catch (error) {
       console.log("Error generating podcast", error)
     } finally {

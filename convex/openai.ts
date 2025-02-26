@@ -11,7 +11,7 @@ export const generateAudioAction = action({
   },
   handler: async (_, args) => {
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-    // const speechFile = path.resolve("./speech.mp3");
+    
     const mp3 = await openai.audio.speech.create({
       model: "tts-1",
       voice: args.voice,
