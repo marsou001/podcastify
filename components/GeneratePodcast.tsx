@@ -4,15 +4,18 @@ import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 import { Loader } from "lucide-react";
 import { useState } from "react";
+import useGeneratePodcast from "@/hooks/useGeneratePodcast";
 
 function GeneratePodcast({
   audio,
   setAudio,
   setAudioDuration,
+  setAudioStorageId,
+  voiceType,
   voicePrompt,
   setVoicePrompt,
 }: GeneratePodcastProps) {
-  const [isGenerating, setIsGenerating] = useState(false);
+  const { isGenerating, generatePodcast } = useGeneratePodcast({ setAudioStorageId, setAudio, voiceType, voicePrompt });
 
   return (
     <div>
@@ -29,7 +32,7 @@ function GeneratePodcast({
         />
       </div>
       <div className="mt-5 w-full max-w-[200px]">
-        <Button type="submit" className="text-white-1 bg-orange-1 text-base font-bold leading-normal py-4 cursor-pointer">
+        <Button type="submit" onClick={generatePodcast} className="text-white-1 bg-orange-1 text-base font-bold leading-normal py-4 cursor-pointer">
           {isGenerating ? (
             <>
               Generating

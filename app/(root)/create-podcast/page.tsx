@@ -50,7 +50,7 @@ function CreatePodcast() {
   const [voiceType, setVoiceType] = useState<VoiceType>("alloy");
   const [voicePrompt, setVoicePrompt] = useState("");
 
-  const [isSubmitting, setIsSubmitting] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
