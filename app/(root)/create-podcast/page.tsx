@@ -30,6 +30,10 @@ import GeneratePodcast from "@/components/GeneratePodcast"
 import GenerateThumbnail from "@/components/GenerateThumbnail"
 import { Loader } from "lucide-react"
 import { Id } from "@/convex/_generated/dataModel"
+import { toast } from "sonner"
+import { useMutation } from "convex/react"
+import { api } from "@/convex/_generated/api"
+import { useRouter } from "next/navigation"
 
 const voiceTypes: VoiceType[] = ["alloy", "shimmer", "nova", "echo", "fable", "onyx", "ash", "coral", "sage"];
 
@@ -52,6 +56,10 @@ function CreatePodcast() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const router = useRouter();
+
+  const createPodcast = useMutation(api.podcasts.createPodcast);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -59,11 +67,38 @@ function CreatePodcast() {
     },
   })
   
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
+
+    if (!audioURL || !imageURL || !voiceType) {
+      toast("Please generate audio and image!");
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      await createPodcast({
+        podcastTitle: values.podcastTitle,
+        podcastDescription: values.podcastDescription,
+        voiceType,
+        voicePrompt,
+        audioURL,
+        audioStorageId: audioStorageId!,
+        imagePrompt,
+        imageURL,
+        imageStorageId: imageStorageId!,
+        views: 0,
+        audioDuration,
+      });
+
+      toast("Podcast created successfully!");
+      router.push("/");
+    } catch (error) {
+      console.log(error)
+      toast("Something went wrong!");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   function handleVoiceTypeChange(value: VoiceType) {

@@ -6,17 +6,19 @@ export default defineSchema({
     user: v.id("users"),
     podcastTitle: v.string(),
     podcastDescription: v.string(),
-    audioURL: v.optional(v.string()),
-    audioStorageId: v.optional(v.id("_storage")),
-    imageURL: v.optional(v.string()),
-    imageStorageId: v.optional(v.id("_storage")),
+    audioURL: v.string(),
+    audioStorageId: v.id("_storage"),
+    imageURL: v.string(),
+    imageStorageId: v.id("_storage"),
     author: v.string(),
     authorId: v.string(),
     authorImageURL: v.string(),
     voicePrompt: v.string(),
-    imagePrompt: v.string(),
-    voiceType: v.string(),
-    audioduration: v.number(),
+    imagePrompt: v.optional(v.string()),
+    voiceType: v.union(
+      v.literal("alloy"), v.literal("shimmer"), v.literal("nova"), v.literal("echo"), v.literal("fable"), v.literal("onyx"), v.literal("ash"),v.literal("coral"),v.literal("sage")
+    ),
+    audioDuration: v.number(),
     views: v.number(),
   })
   .searchIndex("search_author", { searchField: "author" })
