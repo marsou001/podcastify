@@ -161,7 +161,7 @@ function GenerateThumbnail({
 
           <div className="flex flex-col items-center gap-1">
             <h2 className="text-orange-1 text-12 font-bold">Click to upload</h2>
-            <p className="text-gray-1 text-12 font-normal">SVG, PNG, JPG, or GIF (max. 1080x1080px)</p>
+            <p className="text-gray-1 text-12 font-normal">SVG, PNG, JPG, GIF, AVIF, or WEBP (max. 1080x1080px)</p>
           </div>
         </div>
       )}
