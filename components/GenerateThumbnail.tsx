@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { GenerateThumbnailProps } from "@/types";
 import { Loader } from "lucide-react";
 import { toast } from "sonner";
-import { useMutation } from "convex/react";
+import { useAction, useMutation } from "convex/react";
 import { useUploadFiles } from "@xixixao/uploadstuff/react";
 import { api } from "@/convex/_generated/api";
 import { isStorageId } from "@/types/type-guards";
@@ -26,10 +26,19 @@ function GenerateThumbnail({
   const generateUploadUrl = useMutation(api.files.generateUploadUrl);
   const { startUpload } = useUploadFiles(generateUploadUrl);
 
+  const handleGenerateThumbnail = useAction(api.openai.generateThumbnailAction); 
   const getImageUrl = useMutation(api.podcasts.getURL);
 
-  function generateImage() {
-
+  async function generateImage() {
+    try {
+      const buffer = await handleGenerateThumbnail({ input: imagePrompt });
+      const blob = new Blob([buffer], { type: "image/png" });
+      const fileName = `thumbnail-${uuidv4()}.png`;
+      handleImage(blob, fileName);
+    } catch(error) {
+      console.log(error);
+      toast("Error generating thumbnail");
+    }
   }
 
   async function uploadImage(e: ChangeEvent<HTMLInputElement>) {
@@ -40,8 +49,8 @@ function GenerateThumbnail({
       if (files === null) return;
 
       const file = files[0];
-      const blobpart = await file.arrayBuffer();
-      const blob = new Blob([blobpart], { type: "image/png" });
+      const buffer = await file.arrayBuffer();
+      const blob = new Blob([buffer], { type: "image/png" });
       handleImage(blob, file.name)
     } catch (error) {
       toast("Error uploading thumbnail");

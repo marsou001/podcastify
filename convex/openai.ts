@@ -2,6 +2,8 @@ import { v } from "convex/values";
 import { action } from "./_generated/server";
 import OpenAI from "openai";
 
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
 export const generateAudioAction = action({
   args: {
     input: v.string(),
@@ -10,7 +12,6 @@ export const generateAudioAction = action({
     )
   },
   handler: async (_, args) => {
-    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
     
     const mp3 = await openai.audio.speech.create({
       model: "tts-1",
@@ -19,6 +20,28 @@ export const generateAudioAction = action({
     });
 
     const buffer = await mp3.arrayBuffer();
+    return buffer;
+  }
+})
+
+export const generateThumbnailAction = action({
+  args: { input: v.string() },
+  handler: async (_, args) => {
+    const response = await openai.images.generate({
+      model: "dall-e-2",
+      prompt: args.input,
+      size: "1024x1024",
+      quality: "standard",
+      n: 1,
+    })
+
+    const url = response.data[0].url;
+    if (url === undefined) {
+      throw new Error("Error generating url")
+    }
+
+    const imageResponse = await fetch(url);
+    const buffer = await imageResponse.arrayBuffer();
     return buffer;
   }
 })
