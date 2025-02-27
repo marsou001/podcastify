@@ -134,7 +134,13 @@ function CreatePodcast() {
               voicePrompt={voicePrompt}
               setVoicePrompt={setVoicePrompt}
             />
-            <GenerateThumbnail />
+            <GenerateThumbnail
+              setImage={setImageURL}
+              setImageStorageId={setImageStorageId}
+              image={imageURL}
+              imagePrompt={imagePrompt}
+              setImagePrompt={setImagePrompt}
+            />
 
             <div className="mt-10 w-full">
               <Button type="submit" className="text-white-1 bg-orange-1 hover:bg-black-1 text-base font-extrabold leading-normal w-full py-4 cursor-pointer transition-all duration-500">
