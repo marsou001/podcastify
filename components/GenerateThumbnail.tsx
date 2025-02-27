@@ -124,7 +124,7 @@ function GenerateThumbnail({
             </Label>
 
             <Textarea
-              className="text-gray-1 bg-black-1 text-base font-light leading-normal placeholder:text-gray-1 placeholder:text-base placeholder:leading-normal border-none rounded-[6px] focus-visible:ring-orange-1"
+              className="text-white-1 bg-black-1 text-base font-light leading-normal placeholder:text-gray-1 placeholder:text-base placeholder:leading-normal border-none rounded-[6px] focus-visible:ring-orange-1"
               placeholder="Provide text to generate thumbnail"
               rows={10}
               value={imagePrompt}

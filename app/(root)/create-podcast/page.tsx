@@ -119,7 +119,7 @@ function CreatePodcast() {
                 <FormItem className="flex flex-col gap-2.5">
                   <FormLabel className="text-white-1 text-base leading-normal font-bold">Podcast title</FormLabel>
                   <FormControl>
-                    <Input placeholder="JSM Pro Podcast" {...field} className="text-gray-1 text-base leading-normal placeholder:text-base placeholder:leading-normal bg-black-1 border-none focus-visible:ring-orange-1 rounded-[6px]" />
+                    <Input placeholder="JSM Pro Podcast" {...field} className="text-white-1 text-base leading-normal placeholder:text-base placeholder:leading-normal bg-black-1 border-none focus-visible:ring-orange-1 rounded-[6px]" />
                   </FormControl>
                   <FormMessage className="text-white-1" />
                 </FormItem>
@@ -151,7 +151,7 @@ function CreatePodcast() {
                 <FormItem className="flex flex-col gap-2.5">
                   <FormLabel className="text-white-1 text-base leading-normal font-bold">Podcast description</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Write a short podcast description" {...field} className="text-gray-1 text-base leading-normal placeholder:text-base placeholder:leading-normal bg-black-1 border-none focus-visible:ring-orange-1 rounded-[6px]" />
+                    <Textarea placeholder="Write a short podcast description" {...field} className="text-white-1 text-base leading-normal placeholder:text-base placeholder:leading-normal bg-black-1 border-none focus-visible:ring-orange-1 rounded-[6px]" />
                   </FormControl>
                   <FormMessage className="text-white-1" />
                 </FormItem>
