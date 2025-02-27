@@ -1,7 +1,7 @@
 import { v } from "convex/values";
-import { query } from "./_generated/server";
+import { mutation } from "./_generated/server";
 
-export const getURL = query({
+export const getURL = mutation({
   args: {
     storageId: v.id("_storage"),
   },

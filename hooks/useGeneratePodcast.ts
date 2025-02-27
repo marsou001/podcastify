@@ -16,6 +16,7 @@ function useGeneratePodcast({
   const { startUpload } = useUploadFiles(generateUploadUrl);
 
   const getPodcastAudio = useAction(api.openai.generateAudioAction);
+  const getAudioUrl = useMutation(api.podcasts.getURL);
 
   async function generatePodcast() {
     setIsGenerating(true);
@@ -48,10 +49,10 @@ function useGeneratePodcast({
       }
 
       setAudioStorageId(storageId);
-      const audioURL = useQuery(api.podcasts.getURL, { storageId });
+      const audioURL = await getAudioUrl({ storageId });
       
       if (!audioURL) {
-        throw new Error("Audio is not found")
+        throw new Error("Audio is not found");
       }
 
       setAudio(audioURL);
