@@ -33,7 +33,7 @@ function GeneratePodcast({
         />
       </div>
       <div className="mt-5 w-full max-w-[200px]">
-        <Button type="submit" onClick={generatePodcast} className="text-white-1 bg-orange-1 text-base font-bold leading-normal py-4 cursor-pointer">
+        <Button onClick={generatePodcast} className="text-white-1 bg-orange-1 text-base font-bold leading-normal py-4 cursor-pointer">
           {isGenerating ? (
             <>
               Generating

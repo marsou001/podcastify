@@ -2,7 +2,7 @@ import { api } from "@/convex/_generated/api";
 import { GeneratePodcastProps } from "@/types";
 import { isStorageId } from "@/types/type-guards";
 import { useUploadFiles } from "@xixixao/uploadstuff/react";
-import { useAction, useMutation, useQuery } from "convex/react";
+import { useAction, useMutation } from "convex/react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { v4 as uuidv4 } from "uuid";
