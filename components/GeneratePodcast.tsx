@@ -26,6 +26,7 @@ function GeneratePodcast({
 
         <Textarea
           className="text-gray-1 bg-black-1 text-base font-light leading-normal placeholder:text-gray-1 placeholder:text-base placeholder:leading-normal border-none rounded-[6px] focus-visible:ring-orange-1"
+          placeholder="Provide text to generate audio"
           rows={10}
           value={voicePrompt}
           onChange={(e) => setVoicePrompt(e.target.value)}
@@ -40,17 +41,17 @@ function GeneratePodcast({
             </>
           ) : "Generate"}
         </Button>
-
-        {audio && (
-          <audio
-           src={audio}
-           controls
-           autoPlay
-           className="mt-5"
-           onLoadedMetadata={(e) => setAudioDuration(e.currentTarget.duration)}
-          />
-        )}
       </div>
+
+      {audio && (
+        <audio
+          src={audio}
+          controls
+          autoPlay
+          className="mt-5"
+          onLoadedMetadata={(e) => setAudioDuration(e.currentTarget.duration)}
+        />
+      )}
     </div>
   )
 }
