@@ -2,13 +2,17 @@
 
 import { sidebarLinks } from "@/constants";
 import { cn } from "@/lib/utils";
+import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { Button } from "./ui/button";
+import { use } from "react";
 
 function LeftSideBar() {
   const router = useRouter();
   const pathname = usePathname();
+  const { signOut } = useClerk();
 
   return (
     <aside className="left_sidebar">
@@ -35,6 +39,25 @@ function LeftSideBar() {
           )
         })}
       </nav>
+
+      <SignedOut>
+        <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
+          <Button asChild className="text-white-1 bg-orange-1 text-base font-extrabold w-full cursor-pointer">
+            <Link href="/sign-in">Sign-in</Link>
+          </Button>
+        </div>
+      </SignedOut>
+      
+      <SignedIn>
+        <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
+          <Button
+            className="text-white-1 bg-orange-1 text-base font-extrabold w-full cursor-pointer"
+            onClick={() => signOut(() => router.push("/"))}
+          >
+            Log out
+          </Button>
+        </div>
+      </SignedIn>
     </aside>
   )
 }
