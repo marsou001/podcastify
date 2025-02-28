@@ -125,6 +125,12 @@ export type ProfileCardProps = {
   userFirstName: string;
 }
 
+
+export type DotButtonProps = {
+  selected: boolean;
+  onClick: () => void;
+}
+
 export type UseDotButtonType = {
   selectedIndex: number;
   scrollSnaps: number[];
