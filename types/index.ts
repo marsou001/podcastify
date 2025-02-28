@@ -131,6 +131,11 @@ export type UseDotButtonType = {
   onDotButtonClick: (index: number) => void;
 };
 
+export type HeaderProps = {
+  headerTitle?: string;
+  titleClassName?: string;
+}
+
 type EmptyStateLink = {
   buttonLink: string;
   buttonText: string;
