@@ -8,15 +8,22 @@ import PodcastDetailsPlayer from "./PodcastDetailsPlayer";
 import LoaderSpinner from "./LoaderSpinner";
 import PodcastCard from "./PodcastCard";
 import EmptyState from "./EmptyState";
+import { useUser } from "@clerk/nextjs";
+
+// TODO: create a component if no podcast with id is found
+// TODO: divide into smaller components
 
 function PodcastDetails({ podcastId }: { podcastId: Id<"podcasts"> }) {
+  const { user } = useUser();
   const podcast = useQuery(api.podcasts.getPodcastById, { podcastId });
   const similarPodcasts = useQuery(api.podcasts.getPodcastByVoiceType, { podcastId });
+
+  const isOwner = user?.id === podcast?.authorId;
 
   // if (podcast === null) return <div>No podcast with the specific id was found</div>
   
   if (podcast === undefined || similarPodcasts === undefined) return <LoaderSpinner />
-
+  podcast
   return (
     <section className="flex w-full flex-col">
       <header className="flex justify-between items-center mt-9">
@@ -28,7 +35,7 @@ function PodcastDetails({ podcastId }: { podcastId: Id<"podcasts"> }) {
         </figure>
       </header>
 
-      <PodcastDetailsPlayer />
+      <PodcastDetailsPlayer isOwner={isOwner} podcastId={podcast?._id} {...podcast} />
 
       <p className="text-white-2 text-base font-medium leading-normal pt-[45px] pb-8 max-md:text-center">{ podcast?.podcastDescription }</p>
       
