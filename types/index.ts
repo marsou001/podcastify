@@ -11,8 +11,7 @@ export type VoiceType = SpeechCreateParams["voice"];
 export type EmptyStateProps = {
   title: string;
   search?: boolean;
-  buttonText?: string;
-  buttonLink?: string;
+  link?: EmptyStateLink;
 }
 
 export type TopPodcastersProps = {
@@ -131,3 +130,8 @@ export type UseDotButtonType = {
   scrollSnaps: number[];
   onDotButtonClick: (index: number) => void;
 };
+
+type EmptyStateLink = {
+  buttonLink: string;
+  buttonText: string;
+}
