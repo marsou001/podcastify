@@ -16,6 +16,7 @@ export default function Home() {
           {trendingPodcasts?.map((podcast) => (
             <PodcastCard
               key={podcast._id}
+              podcastId={podcast._id}
               title={podcast.podcastTitle}
               imgURL={podcast.imageURL}
               description={podcast.podcastDescription}
