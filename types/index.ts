@@ -104,8 +104,8 @@ export type AudioProps = {
 }
 
 export type AudioContextType = {
-  audio: AudioProps | undefined;
-  setAudio: React.Dispatch<React.SetStateAction<AudioProps | undefined>>;
+  audio: AudioProps | null;
+  setAudio: React.Dispatch<React.SetStateAction<AudioProps | null>>;
 }
 
 export type PodcastCardProps = {

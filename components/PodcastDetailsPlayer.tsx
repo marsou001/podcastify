@@ -1,10 +1,11 @@
 "use client";
+
 import { useMutation } from "convex/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { api } from "@/convex/_generated/api";
-// import { useAudio } from '@/providers/AudioProvider';
+import useAudio from '@/hooks/useAudio';
 import { PodcastDetailPlayerProps } from "@/types";
 import LoaderSpinner from "./LoaderSpinner";
 import { Button } from "./ui/button";
@@ -23,7 +24,7 @@ const PodcastDetailPlayer = ({
   authorId,
 }: PodcastDetailPlayerProps) => {
   const router = useRouter();
-  // const { setAudio } = useAudio();
+  const { setAudio } = useAudio();
   const [showOptionsMenu, setShowOptionsMenu] = useState(false);
   const deletePodcast = useMutation(api.podcasts.deletePodcast);
 
@@ -39,13 +40,13 @@ const PodcastDetailPlayer = ({
   };
 
   const handlePlay = () => {
-    // setAudio({
-    //   title: podcastTitle,
-    //   audioURL,
-    //   imageURL,
-    //   author,
-    //   podcastId,
-    // });
+    setAudio({
+      title: podcastTitle,
+      audioURL,
+      imageURL,
+      author,
+      podcastId,
+    });
   };
 
   if (!imageURL || !authorImageURL) return <LoaderSpinner />;

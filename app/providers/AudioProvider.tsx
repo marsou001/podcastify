@@ -1,13 +1,23 @@
 "use client"
 
-import { AudioContextType } from "@/types";
-import { createContext } from "react";
+import { AudioContextType, AudioProps } from "@/types";
+import { usePathname } from "next/navigation";
+import { createContext, ReactNode, useEffect, useState } from "react";
 
-const audioContext = createContext<AudioContextType | undefined>(undefined);
+export const AudioContext = createContext<AudioContextType | null>(null);
 
-function AudioProvider() {
+function AudioProvider({ children }: { children: ReactNode}) {
+  const [audio, setAudio] = useState<AudioProps | null>(null);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (pathname === "/create-podcast") setAudio(null);
+  }, [pathname])
+
   return (
-    <div></div>
+    <AudioContext.Provider value={{ audio, setAudio }}>
+      {children}
+    </AudioContext.Provider>
   )
 }
 
