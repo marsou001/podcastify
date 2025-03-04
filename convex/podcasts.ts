@@ -117,43 +117,43 @@ export const getPodcastByAuthorId = query({
 });
 
 // this query will get the podcast by the search query.
-// export const getPodcastBySearch = query({
-//   args: {
-//     search: v.string(),
-//   },
-//   handler: async (ctx, args) => {
-//     if (args.search === "") {
-//       return await ctx.db.query("podcasts").order("desc").collect();
-//     }
+export const getPodcastBySearch = query({
+  args: {
+    search: v.string(),
+  },
+  handler: async (ctx, args) => {
+    if (args.search === "") {
+      return await ctx.db.query("podcasts").order("desc").collect();
+    }
 
-//     const authorSearch = await ctx.db
-//       .query("podcasts")
-//       .withSearchIndex("search_author", (q) => q.search("author", args.search))
-//       .take(10);
+    const authorSearch = await ctx.db
+      .query("podcasts")
+      .withSearchIndex("search_author", (q) => q.search("author", args.search))
+      .take(10);
 
-//     if (authorSearch.length > 0) {
-//       return authorSearch;
-//     }
+    if (authorSearch.length > 0) {
+      return authorSearch;
+    }
 
-//     const titleSearch = await ctx.db
-//       .query("podcasts")
-//       .withSearchIndex("search_title", (q) =>
-//         q.search("podcastTitle", args.search)
-//       )
-//       .take(10);
+    const titleSearch = await ctx.db
+      .query("podcasts")
+      .withSearchIndex("search_title", (q) =>
+        q.search("podcastTitle", args.search)
+      )
+      .take(10);
 
-//     if (titleSearch.length > 0) {
-//       return titleSearch;
-//     }
+    if (titleSearch.length > 0) {
+      return titleSearch;
+    }
 
-//     return await ctx.db
-//       .query("podcasts")
-//       .withSearchIndex("search_body", (q) =>
-//         q.search("podcastDescription" || "podcastTitle", args.search)
-//       )
-//       .take(10);
-//   },
-// });
+    return await ctx.db
+      .query("podcasts")
+      .withSearchIndex("search_body", (q) =>
+        q.search("podcastDescription", args.search)
+      )
+      .take(10);
+  },
+});
 
 // this mutation will update the views of the podcast.
 export const updatePodcastViews = mutation({

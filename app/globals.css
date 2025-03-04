@@ -81,7 +81,7 @@
 }
 
 @utility input-class {
-  @apply text-16 placeholder:text-16 bg-black-1 rounded-[6px] placeholder:text-gray-1 border-none text-gray-1;
+  @apply text-base leading-normal placeholder:text-base placeholder:leading-normal bg-black-1 rounded-[6px] placeholder:text-gray-1 border-none text-gray-1;
 }
 
 @utility podcast_grid {
