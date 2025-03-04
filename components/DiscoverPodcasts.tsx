@@ -7,7 +7,7 @@ import SearchBar from "@/components/SearchBar";
 import { api } from "@/convex/_generated/api";
 import { useQuery } from "convex/react";
 
-function DiscoverPodcasts({ search }: { search: string }) {
+function DiscoverPodcasts({ search }: { search: string | undefined }) {
   const podcastsData = useQuery(api.podcasts.getPodcastBySearch, { search: search || "" })
 
   return (
@@ -15,7 +15,10 @@ function DiscoverPodcasts({ search }: { search: string }) {
       <SearchBar />
 
       <div className="flex flex-col gap-9">
-        <h1 className="text-white-1 text-[20px] font-bold">Discover</h1>
+        <h1 className="text-white-1 text-[20px] font-bold">
+          {!search ? "Discover Trending Podcasts" : "Search results for: "}
+          <span className="text-white-2">{ search }</span>
+        </h1>
         {podcastsData === undefined ? (
           <LoaderSpinner />
         ) : (
