@@ -4,19 +4,22 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Input } from "./ui/input";
 import { usePathname, useRouter } from "next/navigation";
+import useDebounce from "@/hooks/useDebounce";
 
 function SearchBar() {
   const [search, setSearch] = useState("");
   const router = useRouter();
   const pathname = usePathname();
 
+  const debouncedSearch = useDebounce(search, 500);
+  
   useEffect(() => {
-    if (search.length > 0) {
-      router.push("/discover?search=" + search);
-    } else if (search.length === 0 && pathname === "/discover") {
+    if (debouncedSearch.length > 0) {
+      router.push("/discover?search=" + debouncedSearch);
+    } else if (debouncedSearch.length === 0 && pathname === "/discover") {
       router.push("/discover");
     }
-  }, [router, pathname, search]);
+  }, [router, pathname, debouncedSearch]);
 
   return (
     <div className="relative block mt-8">
