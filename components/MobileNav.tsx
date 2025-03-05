@@ -37,17 +37,18 @@ function MobileNav() {
                   const isActive = item.route === pathname || pathname.startsWith(item.route + "/");
 
                   return (
-                    <Link
-                      key={item.label}
-                      href={item.route}
-                      className={cn("flex justify-start items-center gap-3 py-4 max-lg:px-4", {
-                        "bg-nav-focus border-r-4 border-orange-1": isActive
-                      })}
-                    >
-                      <Image src={item.imgURL} alt={item.label} width={24} height={24} />
-                      <span>{ item.label }</span>
-                    </Link>
-                  )
+                    <SheetClose key={item.label} asChild>
+                      <Link
+                        href={item.route}
+                        className={cn("flex justify-start items-center gap-3 py-4 max-lg:px-4", {
+                          "bg-nav-focus border-r-4 border-orange-1": isActive
+                        })}
+                      >
+                        <Image src={item.imgURL} alt={item.label} width={24} height={24} />
+                        <span>{ item.label }</span>
+                      </Link>
+                    </SheetClose>
+                    )
                 })}
               </nav>
             </SheetClose>
