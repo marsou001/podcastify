@@ -3,7 +3,6 @@ import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 import { Loader } from "lucide-react";
-import { useState } from "react";
 import useGeneratePodcast from "@/hooks/useGeneratePodcast";
 
 function GeneratePodcast({
