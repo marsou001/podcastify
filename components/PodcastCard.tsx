@@ -6,8 +6,9 @@ function PodcastCard({ podcastId, title, imgURL, description,}: PodcastCardProps
   const router = useRouter();
 
   function handleViews() {
-    // increase views
+    // TODO: increase views
 
+    // TODO: fix "localhost redirected you too many times" when not authenticated
     router.push(`/podcasts/${podcastId}`, { scroll: true });
   }
 
