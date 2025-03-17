@@ -31,10 +31,9 @@ function useGeneratePodcast({
       const response = await getPodcastAudio({
         voice: voiceType,
         input: voicePrompt,
-      })
-      const blob = new Blob([response], { type: "audio/mp3" });
+      });
       const filename = `podcast-${uuidv4()}.mp3`;
-      const file = new File([blob], filename, { type: "audio/mp3" });
+      const file = new File([response], filename, { type: "audio/mp3" });
       const uploaded = await startUpload([file]);
       const uploadResponse = uploaded[0].response;
 
