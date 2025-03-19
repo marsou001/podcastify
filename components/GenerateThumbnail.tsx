@@ -32,9 +32,8 @@ function GenerateThumbnail({
   async function generateImage() {
     try {
       const buffer = await handleGenerateThumbnail({ input: imagePrompt });
-      const blob = new Blob([buffer], { type: "image/png" });
       const fileName = `thumbnail-${uuidv4()}.png`;
-      handleImage(blob, fileName);
+      await handleImage(buffer, fileName);
     } catch(error) {
       console.log(error);
       toast("Error generating thumbnail");
@@ -50,20 +49,19 @@ function GenerateThumbnail({
 
       const file = files[0];
       const buffer = await file.arrayBuffer();
-      const blob = new Blob([buffer], { type: "image/png" });
-      handleImage(blob, file.name)
+      handleImage(buffer, file.name)
     } catch (error) {
       toast("Error uploading thumbnail");
       console.log(error)
     }
   }
 
-  async function handleImage(blob: Blob, fileName: string) {
+  async function handleImage(buffer: ArrayBuffer, fileName: string) {
     setIsImageLoading(true);
     setImage("");
 
     try {
-      const file = new File([blob], fileName, { type: "image/png" });
+      const file = new File([buffer], fileName, { type: "image/png" });
       const uploaded = await startUpload([file]);
       const uploadResponse = uploaded[0].response;
 
