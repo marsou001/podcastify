@@ -1,14 +1,27 @@
+"use client";
+
+import useAudio from "@/hooks/useAudio";
 import Image from "next/image";
 import { Button } from "./ui/button";
+import { AudioProps } from "@/types";
 
 export type ProfileInfoProps = {
   name: string;
   imageURL: string;
+  randomPodcast: AudioProps;
 }
 
-function ProfileInfo({ name, imageURL }: ProfileInfoProps) {
+function ProfileInfo({ name, imageURL, randomPodcast }: ProfileInfoProps) {
+  const { setAudio } = useAudio();
+
   function playRandomPodcast() {
-    console.log(222)
+    setAudio({
+      title: randomPodcast.title,
+      audioURL: randomPodcast.audioURL,
+      imageURL: randomPodcast.imageURL,
+      author: randomPodcast.author,
+      podcastId: randomPodcast.podcastId,
+    });
   }
 
   return (
