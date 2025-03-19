@@ -42,7 +42,7 @@ function RightSideBar() {
             <div
               key={podcastr._id}
               className="cursor-pointer flex justify-between items-center"
-              onClick={() => router.push(`/profile/${podcastr._id}`)}
+              onClick={() => router.push(`/profile/${podcastr.clerkId}`)}
             >
               <figure className="flex items-center gap-2">
                 <Image src={podcastr.imageURL} alt={podcastr.name} width={44} height={44} className="aspect-square rounded-lg" />
