@@ -31,18 +31,18 @@ export type TopPodcastersProps = {
 export type PodcastProps = {
   _id: Id<"podcasts">;
   _creationTime: number;
-  audioStorageId: Id<"_storage"> | null;
+  audioStorageId: Id<"_storage">;
   user: Id<"users">;
   podcastTitle: string;
   podcastDescription: string;
-  audioURL: string | null;
-  imageURL: string | null;
-  imageStorageId: Id<"_storage"> | null;
+  audioURL: string;
+  imageURL: string;
+  imageStorageId: Id<"_storage">;
   author: string;
   authorId: string;
   authorImageURL: string;
   voicePrompt: string;
-  imagePrompt: string | null;
+  imagePrompt?: string;
   voiceType: VoiceType;
   audioDuration: number;
   views: number;

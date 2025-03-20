@@ -9,9 +9,10 @@ export type ProfileInfoProps = {
   name: string;
   imageURL: string;
   randomPodcast: AudioProps;
+  views: number;
 }
 
-function ProfileInfo({ name, imageURL, randomPodcast }: ProfileInfoProps) {
+function ProfileInfo({ name, imageURL, randomPodcast, views }: ProfileInfoProps) {
   const { setAudio } = useAudio();
 
   function playRandomPodcast() {
@@ -48,7 +49,7 @@ function ProfileInfo({ name, imageURL, randomPodcast }: ProfileInfoProps) {
               <figure className="flex gap-3">
                 <Image src="/icons/headphone.svg" alt="headphone" width={24} height={24} />
                 <h2 className="text-white-3 text-sm">
-                  <span className="text-white-1 text-base font-bold">93000000</span> monthly listeners
+                  <span className="text-white-1 text-base font-bold">{ views }</span> monthly listeners
                 </h2>
               </figure>
             </article>

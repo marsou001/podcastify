@@ -1,41 +1,16 @@
-import { Dispatch, SetStateAction, useEffect } from "react";
-import { AudioProps } from "@/types";
+import { PodcastProps } from "@/types";
 import { useUser } from "@clerk/nextjs";
-import { useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
-import LoaderSpinner from "./LoaderSpinner";
 import PodcastCard from "./PodcastCard";
 import EmptyState from "./EmptyState";
 
 export type ProfilePodcastsProps = {
   authorId: string;
-  setRandomPodcast: Dispatch<SetStateAction<AudioProps>>;
+  podcasts: PodcastProps[];
 }
 
-function ProfilePodcasts({ authorId, setRandomPodcast }: ProfilePodcastsProps) {
+function ProfilePodcasts({ authorId, podcasts }: ProfilePodcastsProps) {
   const { user } = useUser();
-  const podcastsData = useQuery(api.podcasts.getPodcastByAuthorId, { authorId });
-
   const isUserAuthor = user?.id === authorId;
-
-  const podcasts = podcastsData?.podcasts!;
-  
-  useEffect(() => {
-    if (podcastsData === undefined) return;
-
-    const ran = Math.floor(Math.random() * podcasts.length)
-    const randomPodcast = podcasts[ran];
-    
-    setRandomPodcast({
-      podcastId: randomPodcast._id,
-      author: randomPodcast.author,
-      title: randomPodcast.podcastTitle,
-      audioURL: randomPodcast.audioURL,
-      imageURL: randomPodcast.imageURL,
-    });
-  }, [podcastsData]);
-  
-  if (podcastsData === undefined) return <LoaderSpinner />
 
   return (
     <section>
