@@ -41,7 +41,7 @@ const formSchema = z.object({
   podcastTitle: z.string().min(2),
   podcastDescription: z.string().min(2),
 })
-// TODO: fix "audio and image" toast appeat error
+
 function CreatePodcast() {
   const [imageURL, setImageURL] = useState("");
   const [imagePrompt, setImagePrompt] = useState("");

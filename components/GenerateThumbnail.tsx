@@ -18,7 +18,7 @@ function GenerateThumbnail({
   setImage, setImageStorageId, image, imagePrompt, setImagePrompt
 }: GenerateThumbnailProps) {
   const [isAIThumbnail, setIsAIThumbnail] = useState(false);
-  const [isGenerating, setIsGenerating] = useState(false);
+  const [isAIThumbnailGenerating, setAIThumbnailGenerating] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(false);
 
   const imageRef = useRef<HTMLInputElement>(null);
@@ -30,13 +30,18 @@ function GenerateThumbnail({
   const getImageUrl = useMutation(api.podcasts.getURL);
 
   async function generateImage() {
+    setAIThumbnailGenerating(true);
+
     try {
       const buffer = await handleGenerateThumbnail({ input: imagePrompt });
       const fileName = `thumbnail-${uuidv4()}.png`;
+      toast("Thumbnail generated successfully, now uploading!");
       await handleImage(buffer, fileName);
     } catch(error) {
       console.log(error);
       toast("Error generating thumbnail");
+    } finally {
+      setAIThumbnailGenerating(false);
     }
   }
 
@@ -83,7 +88,7 @@ function GenerateThumbnail({
       }
 
       setImage(imageURL);
-      toast("Thumbnail generated successfully!")
+      toast("Thumbnail uploaded successfully!")
     } catch (error) {
       console.log(error);
       toast("Error generating thumbnail")
@@ -130,10 +135,15 @@ function GenerateThumbnail({
             />
           </div>
           <div className="w-full max-w-[200px]">
-            <Button onClick={generateImage} className="text-white-1 bg-orange-1 text-base font-bold leading-normal py-4 cursor-pointer">
-              {isImageLoading ? (
+            <Button type="button" onClick={generateImage} className="text-white-1 bg-orange-1 text-base font-bold leading-normal py-4 cursor-pointer">
+              {isAIThumbnailGenerating ? (
                 <>
                   Generating
+                  <Loader size={20} className="animate-spin" />
+                </>
+              ) : isImageLoading ? (
+                <>
+                  Uploading
                   <Loader size={20} className="animate-spin" />
                 </>
               ) : "Generate"}
