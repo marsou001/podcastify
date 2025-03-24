@@ -1,14 +1,15 @@
+import { api } from "@/convex/_generated/api";
 import { PodcastCardProps } from "@/types";
+import { useMutation } from "convex/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 function PodcastCard({ podcastId, title, imgURL, description,}: PodcastCardProps) {
   const router = useRouter();
+  const increaseViews = useMutation(api.podcasts.updatePodcastViews);
 
-  function handleViews() {
-    // TODO: increase views
-
-    // TODO: fix "localhost redirected you too many times" when not authenticated
+  async function handleViews() {
+    await increaseViews({ podcastId });
     router.push(`/podcasts/${podcastId}`, { scroll: true });
   }
 
