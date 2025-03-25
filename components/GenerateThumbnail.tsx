@@ -35,11 +35,10 @@ function GenerateThumbnail({
     try {
       const buffer = await handleGenerateThumbnail({ input: imagePrompt });
       const fileName = `thumbnail-${uuidv4()}.png`;
-      toast("Thumbnail generated successfully, now uploading!");
+      toast.success("Thumbnail generated successfully, now uploading!");
       await handleImage(buffer, fileName);
-    } catch(error) {
-      console.log(error);
-      toast("Error generating thumbnail");
+    } catch {
+      toast.error("Error generating thumbnail!");
     } finally {
       setAIThumbnailGenerating(false);
     }
@@ -55,9 +54,8 @@ function GenerateThumbnail({
       const file = files[0];
       const buffer = await file.arrayBuffer();
       handleImage(buffer, file.name)
-    } catch (error) {
-      toast("Error uploading thumbnail");
-      console.log(error)
+    } catch {
+      toast.error("Error uploading thumbnail");
     }
   }
 
@@ -88,10 +86,9 @@ function GenerateThumbnail({
       }
 
       setImage(imageURL);
-      toast("Thumbnail uploaded successfully!")
-    } catch (error) {
-      console.log(error);
-      toast("Error generating thumbnail")
+      toast.success("Thumbnail uploaded successfully!");
+    } catch {
+      toast.success("Error uploading thumbnail");
     } finally {
       setIsImageLoading(false);
     }

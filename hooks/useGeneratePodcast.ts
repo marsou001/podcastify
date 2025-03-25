@@ -23,7 +23,7 @@ function useGeneratePodcast({
     setAudio("");
 
     if (voicePrompt === "") {
-      toast("Please provide a prompt to generate a prodcast!")
+      toast.error("Please provide a prompt to generate a prodcast!")
       return setIsGenerating(false);
     }
 
@@ -55,9 +55,9 @@ function useGeneratePodcast({
       }
 
       setAudio(audioURL);
-      toast("Podcast generated successfully!")
-    } catch (error) {
-      toast("Error generating podcast: " + error)
+      toast.success("Podcast generated successfully!");
+    } catch {
+      toast.error("Error generating podcast");
     } finally {
       setIsGenerating(false);
     }

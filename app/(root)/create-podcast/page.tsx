@@ -71,7 +71,7 @@ function CreatePodcast() {
     setIsSubmitting(true);
 
     if (!audioURL || !imageURL || !voiceType) {
-      toast("Please generate audio and image!");
+      toast.error("Please generate audio and image!");
       setIsSubmitting(false);
       return;
     }
@@ -91,11 +91,10 @@ function CreatePodcast() {
         audioDuration,
       });
 
-      toast("Podcast created successfully!");
+      toast.success("Podcast created successfully!");
       router.push("/");
-    } catch (error) {
-      console.log(error)
-      toast("Something went wrong!");
+    } catch {
+      toast.error("Something went wrong!");
     } finally {
       setIsSubmitting(false);
     }
