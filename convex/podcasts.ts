@@ -80,10 +80,24 @@ export const getAllPodcasts = query({
 });
 
 // this query will get the podcast by the podcastId.
+// export const getPodcastBTitle = query({
+//   args: { title: v.string() },
+//   handler: async (ctx, args) => {
+//     return await ctx.db
+//       .query("podcasts")
+//       .filter((q) => q.eq(q.field("podcastTitle"), args.title))
+//       .collect()
+//   }
+// })
+
+// this query will get the podcast by the podcastId.
 export const getPodcastById = query({
-  args: { podcastId: v.id("podcasts") },
+  args: { podcastId: v.string() },
   handler: async (ctx, args) => {
-    return await ctx.db.get(args.podcastId);
+    const normalizedId = ctx.db.normalizeId("podcasts", args.podcastId);
+    if (normalizedId === null) return null;
+
+    return await ctx.db.get(normalizedId);
   }
 })
 

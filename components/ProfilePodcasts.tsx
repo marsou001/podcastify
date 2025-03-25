@@ -23,8 +23,8 @@ function ProfilePodcasts({ authorId, podcasts }: ProfilePodcastsProps) {
           <div className="podcast_grid">
             {podcasts.map((podcast) => (
               <PodcastCard
-                key={podcast._id}
-                podcastId={podcast._id}
+                key={podcast.podcastId}
+                podcastId={podcast.podcastId}
                 title={podcast.podcastTitle}
                 imgURL={podcast.imageURL}
                 description={podcast.podcastDescription}
