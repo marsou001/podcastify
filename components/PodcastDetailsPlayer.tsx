@@ -28,6 +28,10 @@ const PodcastDetailPlayer = ({
   const [showOptionsMenu, setShowOptionsMenu] = useState(false);
   const deletePodcast = useMutation(api.podcasts.deletePodcast);
 
+  const handleEdit = async () => {
+    router.push(`/podcasts/${podcastId}/edit`);
+  };
+
   const handleDelete = async () => {
     try {
       await deletePodcast({ podcastId, imageStorageId, audioStorageId });
@@ -108,18 +112,42 @@ const PodcastDetailPlayer = ({
             onClick={() => setShowOptionsMenu((prev) => !prev)}
           />
           {showOptionsMenu && (
-            <div
-              className="absolute -left-32 -top-2 z-10 flex w-32 cursor-pointer justify-center gap-2 rounded-md bg-black-6 py-1.5 hover:bg-black-2"
-              onClick={handleDelete}
-            >
-              <Image
-                src="/icons/delete.svg"
-                width={16}
-                height={16}
-                alt="Delete icon"
-              />
-              <h2 className="text-base font-normal text-white-1">Delete</h2>
-            </div>
+            <>
+              <div
+                className="bg-black-6 overflow-hidden absolute -top-1 -left-24 z-10 w-23 rounded-md"
+              >
+                <button className="bg-black-6 hover:bg-black-2 flex items-center gap-x-1 w-full py-1.5 pl-2 cursor-pointer" onClick={handleEdit}>
+                  <Image
+                    src="/icons/delete.svg"
+                    width={18}
+                    height={18}
+                    alt="Edit icon"
+                  />
+                  <h2 className="text-base font-normal text-white-1">Edit</h2>
+                </button>
+                <button className="bg-black-6 hover:bg-black-2 flex items-center gap-x-1 w-full py-1.5 pl-2 cursor-pointer" onClick={handleDelete}>
+                  <Image
+                    src="/icons/delete.svg"
+                    width={18}
+                    height={18}
+                    alt="Delete icon"
+                  />
+                  <h2 className="text-base font-normal text-white-1">Delete</h2>
+                </button>
+              </div>
+              {/* <div
+                className="absolute -left-32 -top-2 z-10 flex w-32 cursor-pointer justify-center gap-2 rounded-md bg-black-6 py-1.5 hover:bg-black-2"
+                onClick={handleDelete}
+              >
+                <Image
+                  src="/icons/delete.svg"
+                  width={16}
+                  height={16}
+                  alt="Delete icon"
+                />
+                <h2 className="text-base font-normal text-white-1">Delete</h2>
+              </div> */}
+            </>
           )}
         </div>
       )}
