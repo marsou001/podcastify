@@ -52,6 +52,43 @@ export const createPodcast = mutation({
   },
 })
 
+export const updatePodcast = mutation({
+  args: {
+    id: v.id("podcasts"),
+    podcastTitle: v.string(),
+    podcastDescription: v.string(),
+    voiceType: v.union(
+      v.literal("alloy"), v.literal("shimmer"), v.literal("nova"), v.literal("echo"), v.literal("fable"), v.literal("onyx"), v.literal("ash"),v.literal("coral"),v.literal("sage")
+    ),
+    voicePrompt: v.string(),
+    audioURL: v.string(),
+    audioStorageId: v.id("_storage"),
+    imagePrompt: v.optional(v.string()),
+    imageURL: v.string(),
+    imageStorageId: v.id("_storage"),
+    views: v.number(),
+    audioDuration: v.number(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (identity === null) {
+      throw new ConvexError("Not authenticated!");
+    }
+
+    const user = await ctx.db.query("users").filter((q) => q.eq(q.field("email"), identity.email)).collect();
+
+    if (user.length === 0) {
+      throw new ConvexError("User not found!");
+    }
+
+    const { id, ...restOfArgs } = args;
+
+    const podcast = await ctx.db.patch(args.id, { ...restOfArgs });
+    return podcast;
+  },
+})
+
 // this query will get all the podcasts based on the voiceType of the podcast , which we are showing in the Similar Podcasts section.
 export const getPodcastByVoiceType = query({
   args: {
