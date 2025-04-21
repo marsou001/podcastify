@@ -1,6 +1,7 @@
 import { ConvexError, v } from "convex/values";
 
 import { internalMutation, query } from "./_generated/server";
+import { api } from "./_generated/api";
 
 export const getUserByClerkId = query({
   args: { clerkId: v.string() },
@@ -81,13 +82,13 @@ export const updateUser = internalMutation({
       email: args.email,
     });
 
-    const podcast = await ctx.db
+    const podcasts = await ctx.db
       .query("podcasts")
       .filter((q) => q.eq(q.field("authorId"), args.clerkId))
       .collect();
 
     await Promise.all(
-      podcast.map(async (p) => {
+      podcasts.map(async (p) => {
         await ctx.db.patch(p._id, {
           authorImageURL: args.imageURL,
           author: args.name,
@@ -108,6 +109,17 @@ export const deleteUser = internalMutation({
     if (!user) {
       throw new ConvexError("User not found");
     }
+
+    const podcasts = await ctx.db
+      .query("podcasts")
+      .filter((q) => q.eq(q.field("authorId"), args.clerkId))
+      .collect();
+
+    await Promise.all(
+      podcasts.map(async (p) => {
+        await ctx.runMutation(api.podcasts.deletePodcast, { podcastId: p._id });
+      })
+    );
 
     await ctx.db.delete(user._id);
   },
