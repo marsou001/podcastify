@@ -62,6 +62,7 @@ export const updateUser = internalMutation({
   args: {
     clerkId: v.string(),
     imageURL: v.string(),
+    name: v.string(),
     email: v.string(),
   },
   async handler(ctx, args) {
@@ -76,6 +77,7 @@ export const updateUser = internalMutation({
 
     await ctx.db.patch(user._id, {
       imageURL: args.imageURL,
+      name: args.name,
       email: args.email,
     });
 
@@ -88,6 +90,7 @@ export const updateUser = internalMutation({
       podcast.map(async (p) => {
         await ctx.db.patch(p._id, {
           authorImageURL: args.imageURL,
+          author: args.name,
         });
       })
     );

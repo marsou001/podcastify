@@ -27,6 +27,7 @@ const handleClerkWebhook = httpAction(async (ctx, request) => {
       await ctx.runMutation(internal.users.updateUser, {
         clerkId: event.data.id,
         imageURL: event.data.image_url,
+        name: event.data.first_name + " " + event.data.last_name,
         email: event.data.email_addresses[0].email_address,
       });
       break;
