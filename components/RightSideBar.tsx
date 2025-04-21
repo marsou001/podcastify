@@ -16,7 +16,7 @@ function RightSideBar() {
   const { user } = useUser();
   const topPodcasters = useQuery(api.users.getTopUserByPodcastCount);
 
-  const name = (user?.firstName && user?.lastName) ? `${user?.firstName} ${user?.lastName}` : user?.emailAddresses[0].emailAddress;
+  const name = user?.firstName + " " + user?.lastName;
 
   return (
     <div className="right_sidebar text-white-1">
