@@ -38,19 +38,19 @@ function RightSideBar() {
       <section className="flex flex-col gap-8 pt-12">
         <Header headerTitle="Top Podcastrs" />
         <div className="flex flex-col gap-6">
-          {topPodcasters && topPodcasters.slice(0, 5).map((podcastr) => (
+          {topPodcasters && topPodcasters.slice(0, 5).map((podcaster) => (
             <div
-              key={podcastr._id}
+              key={podcaster._id}
               className="cursor-pointer flex justify-between items-center"
-              onClick={() => router.push(`/profile/${podcastr.clerkId}`)}
+              onClick={() => router.push(`/profile/${podcaster.clerkId}`)}
             >
               <figure className="flex items-center gap-2">
-                <Image src={podcastr.imageURL} alt={podcastr.name} width={44} height={44} className="aspect-square rounded-lg" />
-                <h2 className="text-white-1 text-[14px] font-semibold truncate w-[128px]">{ podcastr.name }</h2>
+                <Image src={podcaster.imageURL} alt={podcaster.name} width={44} height={44} className="aspect-square rounded-lg" />
+                <h2 className="text-white-1 text-[14px] font-semibold truncate w-[128px]">{ podcaster.name }</h2>
               </figure>
               
               <div className="text-center">
-                <p className="text-[12px] font-normal">{ formatNumberOfPodcasts(podcastr.totalPodcasts) }</p>
+                <p className="text-[12px] font-normal">{ formatNumberOfPodcasts(podcaster.totalPodcasts) }</p>
               </div>
             </div>
           ))}
