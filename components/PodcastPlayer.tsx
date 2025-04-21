@@ -104,7 +104,7 @@ const PodcastPlayer = () => {
         max={duration}
         className="w-full"
       />
-      <section className="glassmorphism-black flex h-[112px] w-full items-center justify-between px-4 max-md:justify-center max-md:gap-5 md:px-12">
+      <section className="glassmorphism-black flex h-[88px] w-full items-center justify-between px-4 max-md:justify-center max-md:gap-5 md:px-12">
         <audio
           ref={audioRef}
           src={audio?.audioURL}
@@ -116,8 +116,8 @@ const PodcastPlayer = () => {
           <Link href={`/podcast/${audio?.podcastId}`}>
             <Image
               src={audio?.imageURL! || "/images/player1.png"}
-              width={64}
-              height={64}
+              width={56}
+              height={56}
               alt="player1"
               className="aspect-square rounded-xl"
             />

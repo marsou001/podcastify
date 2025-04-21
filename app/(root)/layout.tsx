@@ -1,8 +1,12 @@
+"use client"
+
 import LeftSideBar from "@/components/LeftSideBar";
 import MobileNav from "@/components/MobileNav";
 import PodcastPlayer from "@/components/PodcastPlayer";
 import RightSideBar from "@/components/RightSideBar";
 import { Toaster } from "@/components/ui/sonner";
+import useAudio from "@/hooks/useAudio";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 export default function RootLayout({
@@ -10,9 +14,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { audio } = useAudio();
+
   return (
     <div className="relative flex flex-col">
-      <main className="relative flex bg-black-3">
+      <main className={cn("relative flex bg-black-3", {
+        "pb-20 lg:pb-12": audio?.audioURL
+      })}>
         <LeftSideBar />
 
         <section className="flex min-h-screen flex-1 flex-col px-4 sm:px-14">

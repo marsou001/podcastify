@@ -40,7 +40,7 @@ function LeftSideBar() {
       </nav>
 
       <SignedOut>
-        <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
+        <div className="flex-center w-full pb-22 max-lg:px-4 lg:pr-8">
           <Button asChild className="text-white-1 bg-orange-1 text-base font-extrabold w-full cursor-pointer">
             <Link href="/sign-in">Sign-in</Link>
           </Button>
@@ -48,7 +48,7 @@ function LeftSideBar() {
       </SignedOut>
       
       <SignedIn>
-        <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
+        <div className="flex-center w-full pb-22 max-lg:px-4 lg:pr-8">
           <Button
             className="text-white-1 bg-orange-1 text-base font-extrabold w-full cursor-pointer"
             onClick={() => signOut(() => router.push("/"))}
