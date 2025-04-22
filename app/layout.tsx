@@ -6,7 +6,7 @@ import AudioProvider from "./providers/AudioProvider";
 
 const manrope = Manrope({ subsets: ["latin"] });
 
-const baseURL = "https://podcastify.netlify.app"
+const baseURL = "https://podcastifyai.netlify.app"
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseURL),
