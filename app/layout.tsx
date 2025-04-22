@@ -6,12 +6,25 @@ import AudioProvider from "./providers/AudioProvider";
 
 const manrope = Manrope({ subsets: ["latin"] });
 
+const baseURL = "https://podcastify.netlify.app"
+
 export const metadata: Metadata = {
+  metadataBase: new URL(baseURL),
   title: "Podcastify",
   description: "Generate your podcasts using AI",
   icons: {
     icon: "/icons/logo.svg",
-  }
+  },
+  openGraph: {
+    url: baseURL,
+    type: "website",
+    images: [
+      {
+        url: "/podcastify-main.jpeg",
+        alt: "Preview image for Podcastify main page.",
+      }
+    ]
+  },
 };
 
 export default function RootLayout({
